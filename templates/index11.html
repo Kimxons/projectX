@@ -1,0 +1,44 @@
+{% block header %}
+
+{% include 'includes/_head.html' %}
+
+{% endblock %}
+
+<body>
+  <div id="wrapper">
+    <header class="home">
+      {% include 'includes/navbar.html' %}
+    </header>
+
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row align-items-center justify-content-center" id="howItWorksTenderDocsRow">
+            <div class="row">
+              <div class="card-deck col-md-12">
+
+                <div class="card shadow-sm border-primary">
+                  <div class="card-header text-primary">
+                    <b>Upload or Paste text here to analyse</b>
+                  </div>
+                  <div class="card-body text-primary">
+                    <p class="card-text">This is a recommender system based on sentimental analysis. 
+                      You can analyse text in a unploaded document or simple paste text into the textbox below to analyse.
+                      </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+        
+  </div>
+  {% include 'includes/_results.html' %}
+  {% include 'includes/_footer.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
