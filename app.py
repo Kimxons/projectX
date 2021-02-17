@@ -14,8 +14,6 @@ ACCESS_TOKEN = twitter.obtain_access_token()
 
 twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
 
-app = Flask(__name__)
-
 class SentimentScore:
     def __init__(self, positive_tweets, negative_tweets, neutral_tweets):
 
@@ -52,8 +50,6 @@ def sentiment(tweet):
     else:
         return 'positive'
 
-    # use dictionary to count negative frequent
-
 def sentiment_analysis(tweets):
 
     negative_tweets = []
@@ -73,6 +69,7 @@ def sentiment_analysis(tweets):
 
     return SentimentScore(positive_tweets, negative_tweets, neutral_tweets)
 
+
 app = Flask(__name__, static_url_path='/static')
 
 app.secret_key = "nothing"
@@ -80,7 +77,6 @@ app.secret_key = "nothing"
 nltk.download('stopwords')
 
 set(stopwords.words('english'))
-app = Flask(__name__)
 
 @app.route("/")
 def index():
@@ -99,7 +95,7 @@ def post():
 
     return render_template('home.html', final=compound, text=text)
 
-@app.route("/root", methods=["POST","GET"])
+@app.route("/root", methods=["POST", "GET"])
 def root():
 
     if request.method == "POST":
@@ -109,6 +105,9 @@ def root():
         return render_template("result.html", result=sentiment_analysis(user_timeline), username=request.form['twitter_username'])
     else:
         return render_template("index.html")
+
+
+def recommend()
 
 
 @app.errorhandler(404)

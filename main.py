@@ -69,7 +69,7 @@ def sentiment_analysis(tweets):
 
 
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["POST", "GET"])
 def root():
 
     if request.method == "POST":
