@@ -96,14 +96,6 @@ def post():
 
     return render_template('home.html', result=compound, text=text)
 
-def recommend(result):
-    if result > 50:
-        return "Content too vulgar/profane. PG"
-    elif result == 50:
-        return "Good content. Good for ages 13 years and above"
-
-    else:
-        return "Good content"
 
 @app.route("/root", methods=["POST", "GET"])
 def root():
