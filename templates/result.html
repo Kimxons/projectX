@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 
 {% block body %}
@@ -46,17 +46,13 @@
 
     This user posts good content. Content recommeded for all ages.
 
-    {% elif %}
-    {% if result.neg > result.pos %}
+    {% elif result.neg > result.pos %}
     This user posts profane content. Content not recommeded for minors.
 
     {% else %}
     This user posts good content. Content recommeded for 13 years of age and above.
 
     {% endif %}
-    
-    {% endif %}
-
     {% endif %}
 </div>
 
