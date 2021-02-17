@@ -6,6 +6,16 @@ from dictionary import Dictionary
 import sys
 from twython import Twython
 
+
+app = Flask(__name__, static_url_path='/static')
+
+app.secret_key = "nothing"
+
+nltk.download('stopwords')
+
+set(stopwords.words('english'))
+
+# twitter creds
 APP_KEY = 'jvGdO8lPTLlYRJJshTzhK4pvw'
 APP_SECRET = 'Jv0BhsZAHglNITS4qKmvhcQppLxtzhfpj4CYXAyrShLxsxVrnV'
 
@@ -69,15 +79,6 @@ def sentiment_analysis(tweets):
 
     return SentimentScore(positive_tweets, negative_tweets, neutral_tweets)
 
-
-app = Flask(__name__, static_url_path='/static')
-
-app.secret_key = "nothing"
-
-nltk.download('stopwords')
-
-set(stopwords.words('english'))
-
 @app.route("/")
 def index():
 	return render_template("home.html")
@@ -93,7 +94,16 @@ def post():
     score = sentiment_intensity_analysis.polarity_scores(text=doc)
     compound = round((1 + score['compound'])/2, 2)
 
-    return render_template('home.html', final=compound, text=text)
+    return render_template('home.html', result=compound, text=text)
+
+def recommend(result):
+    if result > 50:
+        return "Content too vulgar/profane. PG"
+    elif result == 50:
+        return "Good content. Good for ages 13 years and above"
+
+    else:
+        return "Good content"
 
 @app.route("/root", methods=["POST", "GET"])
 def root():
@@ -105,10 +115,6 @@ def root():
         return render_template("result.html", result=sentiment_analysis(user_timeline), username=request.form['twitter_username'])
     else:
         return render_template("index.html")
-
-
-def recommend()
-
 
 @app.errorhandler(404)
 def page_not_found(e):
