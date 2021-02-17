@@ -1,32 +1,99 @@
-{% extends 'index.html' %}
+{% block header %}
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<title>{% block title %} Content Recommender Software {% endblock %}</title>
+
+<!-- Bootstrap core CSS -->
+<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+
+{% endblock %}
 
 {% block body %}
-<h3>Results for Twitter username @{{ username }}</h3>
+<h4>Results for Twitter @{{ username }}</h4>
 
-<div>
-    Negative: {{ result.neg }}<br>
-    Positive: {{ result.pos }}<br>
-    Neutral: {{ result.neut }}
+<div style="text-align: center;">
+    <div class="card">
+        <div class="card-header">Twitter data Analysis for {{username}}</div>
+        <div class="card-body">
+            <h4 class="card-title"></h4>
+            <p class="card-text">
+                Negative: {{ result.neg }}<br>
+                Positive: {{ result.pos }}<br>
+                Neutral: {{ result.neut }}
+            </p>
+        </div>
+    </div>
 
-    <div class="ct-chart ct-perfect-fourth"></div>
+    <div class="card">
+        <div class="card-header">Pie Chart Output</div>
+        <div class="card-body">
+            <div class="ct-chart ct-perfect-fourth"></div>
+        </div>
+    </div>
+    
+    <hr class="featurette-divider">
 
-    <h4>Negative tweets</h4>
-    {% for tweet in result.negative_tweets %}
-        <li>{{ tweet }}</li>
-    {% endfor %}
+    <h3>Tweets per Polarity</h3>
 
-    <h4>Positive tweets</h4>
-    {% for tweet in result.positive_tweets %}
-        <li>{{ tweet }}</li>
-    {% endfor %}
+    <div class="card">
+        <div class="card-header">Negative tweets</div>
+        <div class="card-body">
+            {% for tweet in result.negative_tweets %}
+                <li>{{ tweet }}</li>
+            {% endfor %}
 
-    <h4>Neutral tweets</h4>
-    {% for tweet in result.neutral_tweets %}
-        <li>{{ tweet }}</li>
-    {% endfor %}
+        </div>
+    </div>
 
-    <script>
+    <div class="card">
+        <div class="card-header">Positive tweets</div>
+        <div class="card-body">
+            {% for tweet in result.positive_tweets %}
+                <li>{{ tweet }}</li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Neutral tweets</div>
+        <div class="card-body">
+            {% for tweet in result.neutral_tweets %}
+                <li>{{ tweet }}</li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <h3>Tweets per Polarity</h3>
+
+    <div class="card">
+        <div class="card-header">Recommendation from Text Data Analysis</div>
+        <div class="card-body">
+            {% if result %}
+
+                {% if result.pos > result.neg %}
+                    This user posts good content. Content recommeded for all ages.
+
+                {% elif result.neg > result.pos %}
+                    This user posts profane content. Content not recommeded for minors.
+
+                {% else %}
+                    This user posts good content. Content recommeded for 13 years of age and above.
+
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
         var data = {
           // A labels array that can contain any sort of values
           labels: ['Negative', 'Positive', 'Neutral'],
@@ -39,21 +106,5 @@
         });
 
     </script>
-
-    {% if result %}
-
-    {% if result.pos > result.neg %}
-
-    This user posts good content. Content recommeded for all ages.
-
-    {% elif result.neg > result.pos %}
-    This user posts profane content. Content not recommeded for minors.
-
-    {% else %}
-    This user posts good content. Content recommeded for 13 years of age and above.
-
-    {% endif %}
-    {% endif %}
-</div>
 
 {% endblock %}
