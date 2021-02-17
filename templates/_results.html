@@ -1,0 +1,33 @@
+{% if result %}
+
+  <div>
+      <h2">Output of Text Analysis: </h2> <br>
+      "<p>{{ text }}</p>" 
+      <h6> Positivity: {{result}}%</h6>
+      {% else %}
+      <p></p>
+      {{result}} Recommendation: The text is neutral, 
+      Content is good for all ages. Holla, We care about content you feed on!
+    
+    {% endif %}
+
+    {% if result %}
+
+    {% if result < 0.1 %}
+    Recommendation: Content too vulgar/profane. Parental Guidance advised.
+    Holla, We care about content you feed on!
+
+    {% elif result == 0.1 %}
+
+    Recommendation: Good content. Good for ages 13 years and above.
+    Holla, We care about content you feed on!
+
+    {% else %}
+    Recommendation: Good content. Good for all ages.
+    Holla, We care about content you feed on!
+
+    {% endif %}
+
+    {% endif %}
+
+  </div>

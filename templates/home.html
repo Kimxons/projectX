@@ -5,48 +5,46 @@
     <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
 
-        <form method="post" class="form" id="pasteForm">
+        <form method="POST" class="form" id="pasteForm">
         	<label for="post">Paste content to analyse it</label>
 	        <textarea class="form-control" rows="6" cols="600" name="text" form="pasteForm" required="" ></textarea><br><br>
-
-	        <button class="btn btn-primary">Text Analysis</button>
+			<button class="btn btn-primary">Text Analysis</button>
 	    </form>
-        
-	    {% if result %}
 
-	    <div>
+	    {% if result %}
+		<div>
 	        <h2">Output of Text Analysis: </h2> <br>
-	        '<p>{{ text }}</p>' 
+	        <p>{{ text }}</p> 
 	        <h6> Positivity: {{result}}%</h6>
 	        {% else %}
 	        <p></p>
 	        {{result}} Recommendation: The text is neutral, 
-	        Content is good for all ages. Holla, We care about content you feed on!
-        
-        {% endif %}
+	         Content is good for all ages. Holla, We care about content you feed on!
 
-        {% if result %}
+	    {% endif %}
 
-        {% if result < 0.1 %}
-        Recommendation: Content too vulgar/profane. Parental Guidance advised.
-        Holla, We care about content you feed on!
+	    {% if result %}
 
-        {% elif result == 0.1 %}
+	    {% if result < 0.1 %}
+	    Recommendation: Content too vulgar/profane. Parental Guidance advised.
+	    Holla, We care about content you feed on!
 
-        Recommendation: Good content. Good for ages 13 years and above.
-        Holla, We care about content you feed on!
+	    {% elif result == 0.1 %}
 
-        {% else %}
-        Recommendation: Good content. Good for all ages.
-        Holla, We care about content you feed on!
+	    Recommendation: Good content. Good for ages 13 years and above.
+	    Holla, We care about content you feed on!
 
-        {%endif%}
+	    {% else %}
+	    Recommendation: Good content. Good for all ages.
+	    Holla, We care about content you feed on!
 
-        {% endif %}
+	    {% endif %}
 
-	    
-	    </div>
-	    	
+	    {% endif %}
+
+		</div>
+
+	    	    	
 	    <span>&copy; Holla</span>
         
         </div>
