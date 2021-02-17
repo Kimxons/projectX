@@ -30,7 +30,6 @@ dictionaryN = Dictionary('negative-words.txt')
 dictionaryP = Dictionary('positive-words.txt')
 
 def sentiment(tweet):
-
     negative_score = 0
     positive_score = 0
 
@@ -50,10 +49,7 @@ def sentiment(tweet):
     else:
         return 'positive'
 
-    # use dictionary to count negative frequent
-
 def sentiment_analysis(tweets):
-
     negative_tweets = []
     positive_tweets = []
     neutral_tweets = []
@@ -72,14 +68,15 @@ def sentiment_analysis(tweets):
     return SentimentScore(positive_tweets, negative_tweets, neutral_tweets)
 
 
-@app.route("/", methods=["POST","GET"])
+
+@app.route("/", methods=["POST"])
 def root():
 
     if request.method == "POST":
 
-        user_timeline = twitter.get_user_timeline(screen_name=request.form['twitter_username'], count = 100)
+        user = twitter.get_user_timeline(screen_name=request.form['twitter_username'], count = 1000)
 
-        return render_template("result.html", result=sentiment_analysis(user_timeline), username=request.form['twitter_username'])
+        return render_template("result.html", result=sentiment_analysis(user), username=request.form['twitter_username'])
     else:
         return render_template("index.html")
 
